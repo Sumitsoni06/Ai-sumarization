@@ -39,14 +39,73 @@
         </form>
 
         {% if summary %}
-        <div class="mt-8 p-6 bg-indigo-50/50 border border-indigo-100 rounded-xl">
-            <h2 class="text-xl font-bold text-indigo-900 mb-3">Key Summary Points:</h2>
-            <div class="text-slate-700 space-y-2 whitespace-pre-line">
+        <div class="mt-8 p-6 bg-indigo-50/50 border border-indigo-100 rounded-xl relative">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-xl font-bold text-indigo-900">Key Summary Points:</h2>
+                
+                <div class="flex gap-2">
+                    <button 
+                        id="copyBtn"
+                        onclick="copyToClipboard()"
+                        class="text-xs bg-white border border-slate-200 text-slate-600 font-semibold py-1.5 px-3 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+                        📋 Copy
+                    </button>
+                    <button 
+                        onclick="downloadSummary()"
+                        class="text-xs bg-white border border-slate-200 text-slate-600 font-semibold py-1.5 px-3 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+                        💾 Download .txt
+                    </button>
+                </div>
+            </div>
+
+            <div id="summaryText" class="text-slate-700 space-y-2 whitespace-pre-line text-sm leading-relaxed">
                 {{ summary }}
             </div>
         </div>
         {% endif %}
     </div>
+
+    <script>
+        function copyToClipboard() {
+            // Get the text inside our summary block
+            const summaryText = document.getElementById("summaryText").innerText;
+            const copyBtn = document.getElementById("copyBtn");
+
+            // Use the browser's built-in navigator clipboard tool
+            navigator.clipboard.writeText(summaryText).then(() => {
+                // Instantly change button style/text to give visual confirmation
+                copyBtn.innerText = "✅ Copied!";
+                copyBtn.classList.add("bg-green-50", "text-green-600", "border-green-200");
+
+                // Reset it back to normal after 2 seconds
+                setTimeout(() => {
+                    copyBtn.innerText = "📋 Copy";
+                    copyBtn.classList.remove("bg-green-50", "text-green-600", "border-green-200");
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+            });
+        }
+
+        function downloadSummary() {
+            const summaryText = document.getElementById("summaryText").innerText;
+            
+            // Create a virtual text file blob in browser memory
+            const blob = new Blob([summaryText], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            
+            // Create a hidden ghost link element to trigger the download window
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "gemini-summary.txt";
+            document.body.appendChild(a);
+            a.click();
+            
+            // Clean up memory
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
 
 </body>
 </html>
