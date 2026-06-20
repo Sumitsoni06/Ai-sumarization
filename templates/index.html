@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Summarizer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8">
+        <h1 class="text-3xl font-extrabold text-indigo-600 mb-2 flex items-center gap-2">
+            ✨ AI Content Summarizer
+        </h1>
+        <p class="text-slate-500 mb-6">Paste long articles, essays, or notes to get a concise, smart summary instantly.</p>
+
+        <form action="/summarize" method="POST" class="space-y-4">
+            <textarea 
+                name="text_to_summarize" 
+                rows="8" 
+                class="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none" 
+                placeholder="Paste your long text here..." 
+                required></textarea>
+            
+            <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-semibold text-slate-600">Select Summary Length:</label>
+                <select name="summary_length" class="w-full p-3 border border-slate-200 rounded-xl bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <option value="short">Short & Crisp (3 bullet points)</option>
+                    <option value="medium" selected>Medium (Detailed bullet points)</option>
+                    <option value="long">Detailed Paragraph (Deep dive summary)</option>
+                </select>
+            </div>
+            
+            <button 
+                type="submit" 
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-200 shadow-md shadow-indigo-200">
+                Generate Summary
+            </button>
+        </form>
+
+        {% if summary %}
+        <div class="mt-8 p-6 bg-indigo-50/50 border border-indigo-100 rounded-xl">
+            <h2 class="text-xl font-bold text-indigo-900 mb-3">Key Summary Points:</h2>
+            <div class="text-slate-700 space-y-2 whitespace-pre-line">
+                {{ summary }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
