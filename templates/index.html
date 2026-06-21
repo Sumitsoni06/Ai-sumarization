@@ -10,8 +10,16 @@
 
     <div class="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8">
         <h1 class="text-3xl font-extrabold text-indigo-600 mb-2 flex items-center gap-2">
-            ✨ AI Content Summarizer
-        </h1>
+    <svg class="w-8 h-8 text-red-600 animate-spin-[spinning_3s_linear_infinite]" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="3"/>
+        <circle cx="12" cy="7" r="1.5"/>
+        <circle cx="7" cy="14.5" r="1.5"/>
+        <circle cx="17" cy="14.5" r="1.5"/>
+        <path d="M12 7 C 14 7, 15 9, 15 12 M7 14.5 C 8 16, 10 16, 12 15 M17 14.5 C 16 13, 14 12, 12 12" stroke="currentColor" stroke-width="1" fill="none"/>
+    </svg>
+    AI Content Summarizer
+</h1>
         <p class="text-slate-500 mb-6">Paste long articles, essays, or notes to get a concise, smart summary instantly.</p>
 
         <form action="/summarize" method="POST" class="space-y-4">
