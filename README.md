@@ -1,5 +1,5 @@
 # Ai-sumarization
-## 📸 Application Showcase
+##  Application Showcase
 
 Here is a live look at the application interface and features:
 
